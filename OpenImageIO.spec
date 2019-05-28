@@ -115,9 +115,9 @@ sed -i "s/SET CMP0046 OLD/SET CMP0046 NEW/" CMakeLists.txt
 
 %build
 
-rm -rf build/linux && mkdir -p build/linux && pushd build/linux
-# CMAKE_SKIP_RPATH is OK here because it is set to FALSE internally and causes
-# CMAKE_INSTALL_RPATH to be cleared, which is the desiered result.
+mkdir oiio/build
+pushd oiio/build
+
 %cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo \
        -DCMAKE_SKIP_RPATH:BOOL=TRUE \
        -DINCLUDE_INSTALL_DIR:PATH=/usr/include/%{name} \
@@ -137,13 +137,13 @@ rm -rf build/linux && mkdir -p build/linux && pushd build/linux
        -DOPENJPEG_INCLUDE_DIR=$(pkgconf --variable=includedir libopenjp2) \
        -DOpenGL_GL_PREFERENCE=GLVND \
        -DVERBOSE=TRUE \
-       ../../
+       ..
 
 %make_build
 
 
 %install
-pushd build/linux
+pushd oiio/build
 %make_install
 
 # Move man pages to the right directory
