@@ -118,9 +118,7 @@ sed -i "s/SET CMP0046 OLD/SET CMP0046 NEW/" CMakeLists.txt
 rm -rf build/linux && mkdir -p build/linux && pushd build/linux
 # CMAKE_SKIP_RPATH is OK here because it is set to FALSE internally and causes
 # CMAKE_INSTALL_RPATH to be cleared, which is the desiered result.
-cmake  -DCMAKE_INSTALL_PREFIX=/usr \
-       -DCMAKE_INSTALL_LIBDIR=%{_lib} \
-       -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+%cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo \
        -DCMAKE_SKIP_RPATH:BOOL=TRUE \
        -DINCLUDE_INSTALL_DIR:PATH=/usr/include/%{name} \
        -DPYTHON_VERSION=2.7
