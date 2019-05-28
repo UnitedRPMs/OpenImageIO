@@ -115,13 +115,13 @@ sed -i "s/SET CMP0046 OLD/SET CMP0046 NEW/" CMakeLists.txt
 
 %build
 
-mkdir oiio/build
-pushd oiio/build
+mkdir build
+pushd build
 
 %cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo \
        -DCMAKE_SKIP_RPATH:BOOL=TRUE \
        -DINCLUDE_INSTALL_DIR:PATH=/usr/include/%{name} \
-       -DPYTHON_VERSION=2.7
+       -DPYTHON_VERSION=2.7 \
        -DPYLIB_INSTALL_DIR:PATH=%{python2_sitearch} \
        -DBUILD_DOCS:BOOL=TRUE \
        -DINSTALL_DOCS:BOOL=FALSE \
@@ -143,7 +143,7 @@ pushd oiio/build
 
 
 %install
-pushd oiio/build
+pushd build
 %make_install
 
 # Move man pages to the right directory
