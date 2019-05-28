@@ -22,6 +22,9 @@ BuildRequires:  boost-python2-devel
 %else
 BuildRequires:  boost-python2-devel
 %endif
+%if 0%{?fedora} >= 29
+BuildRequires:	python-unversioned-command
+%endif
 BuildRequires:  glew-devel
 BuildRequires:  OpenEXR-devel ilmbase-devel
 BuildRequires:  python2-devel
@@ -120,6 +123,7 @@ cmake  -DCMAKE_INSTALL_PREFIX=/usr \
        -DCMAKE_BUILD_TYPE=RelWithDebInfo \
        -DCMAKE_SKIP_RPATH:BOOL=TRUE \
        -DINCLUDE_INSTALL_DIR:PATH=/usr/include/%{name} \
+       -DPYTHON_VERSION=2.7
        -DPYLIB_INSTALL_DIR:PATH=%{python2_sitearch} \
        -DBUILD_DOCS:BOOL=TRUE \
        -DINSTALL_DOCS:BOOL=FALSE \
