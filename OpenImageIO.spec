@@ -40,6 +40,8 @@ BuildRequires:  pugixml-devel
 BuildRequires:  opencv-devel >= 4.1.0
 BuildRequires:  LibRaw-devel
 BuildRequires:  openssl-devel
+BuildRequires:	freetype-devel
+BuildRequires:	ffmpeg-devel
 
 # WARNING: OpenColorIO and OpenImageIO are cross dependent.
 # If an ABI incompatible update is done in one, the other also needs to be
@@ -105,9 +107,6 @@ rm -f src/include/OpenImageIO/pugixml.hpp \
 # Remove bundled tbb
 rm -rf src/include/tbb
 
-# Install test images
-#rm -rf ../oiio-images && mkdir ../oiio-images && pushd ../oiio-images
-#tar --strip-components=1 -xzf %{SOURCE1}
 
 # Try disabeling old CMP
 sed -i "s/SET CMP0046 OLD/SET CMP0046 NEW/" CMakeLists.txt
@@ -118,38 +117,29 @@ sed -i "s/SET CMP0046 OLD/SET CMP0046 NEW/" CMakeLists.txt
 mkdir build
 pushd build
 
-%cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo \
-       -DCMAKE_SKIP_RPATH:BOOL=TRUE \
-       -DINCLUDE_INSTALL_DIR:PATH=/usr/include/%{name} \
-       -DPYTHON_VERSION=2.7 \
-       -DPYLIB_INSTALL_DIR:PATH=%{python2_sitearch} \
-       -DBUILD_DOCS:BOOL=TRUE \
-       -DINSTALL_DOCS:BOOL=FALSE \
-       -DINSTALL_FONTS:BOOL=FALSE \
-       -DUSE_EXTERNAL_PUGIXML:BOOL=TRUE \
-       -DUSE_OPENSSL:BOOL=TRUE \
-       -DSTOP_ON_WARNING:BOOL=FALSE \
-       -DUSE_CPP:STRING=14 \
-%ifarch ppc ppc64
-       -DNOTHREADS:BOOL=FALSE \
-%endif
-       -DJPEG_INCLUDE_DIR=%{_includedir} \
-       -DOPENJPEG_INCLUDE_DIR=$(pkgconf --variable=includedir libopenjp2) \
-       -DOpenGL_GL_PREFERENCE=GLVND \
-       -DVERBOSE=TRUE \
-       ..
-
-%make_build
-
+%cmake	-DCMAKE_INSTALL_MANDIR:PATH=%{_mandir}/man1 \
+	-DOIIO_BUILD_TESTS=OFF \
+	-DSTOP_ON_WARNING=OFF \
+	-DUSE_EXTERNAL_PUGIXML=ON \
+	-DUSE_FFMPEG=ON \
+	-DUSE_FIELD3D=ON \
+	-DUSE_FREETYPE=ON \
+	-DUSE_GIF=ON \
+	-DUSE_JPEGTURBO=ON \
+	-DUSE_LIBRAW=ON \
+	-DUSE_NUKE=OFF \
+	-DUSE_OCIO=ON \
+	-DUSE_OPENCV=ON \
+	-DUSE_OPENGL=ON \
+	-DUSE_OPENJPEG=ON \
+	-DUSE_OPENSSL=ON \
+	-DUSE_PYTHON=ON \
+	-DUSE_QT=ON ..
+popd
 
 %install
 pushd build
 %make_install
-
-# Move man pages to the right directory
-mkdir -p %{buildroot}%{_mandir}/man1
-cp -a src/doc/*.1 %{buildroot}%{_mandir}/man1
-
 
 %check
 # Not all tests pass on linux
@@ -173,7 +163,6 @@ cp -a src/doc/*.1 %{buildroot}%{_mandir}/man1
 
 %files iv
 %{_bindir}/iv
-%{_mandir}/man1/iv.1.gz
 
 %files devel
 %doc src/doc/*.pdf
