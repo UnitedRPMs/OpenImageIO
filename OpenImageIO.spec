@@ -1,29 +1,22 @@
-%global sover 1.8
+%global sover 2.0
 
 Name:           OpenImageIO
-Version:        1.8.16
+Version:        2.0.8
 Release:        7%{?dist}
 Summary:        Library for reading and writing images
 
 License:        BSD
 URL:            http://www.openimageio.org
 Source0:        https://github.com/OpenImageIO/oiio/archive/Release-%{version}/%{name}-%{version}.tar.gz
-# Images for test suite
-#Source1:        oiio-images.tar.gz
-
-Patch0:         OpenImageIO-man.patch
 
 BuildRequires:  cmake gcc-c++
 BuildRequires:  txt2man
 BuildRequires:  qt5-devel
 BuildRequires:  boost-devel
-BuildRequires:  boost-python2-devel
-%if 0%{?fedora} >= 29
-BuildRequires:	python-unversioned-command
-%endif
+BuildRequires:  boost-python3-devel
 BuildRequires:  glew-devel
 BuildRequires:  OpenEXR-devel ilmbase-devel
-BuildRequires:  python2-devel
+BuildRequires:  python3-devel
 BuildRequires:  libpng-devel libtiff-devel libjpeg-turbo-devel openjpeg2-devel
 BuildRequires:  giflib-devel
 BuildRequires:  libwebp-devel
@@ -38,6 +31,7 @@ BuildRequires:  LibRaw-devel
 BuildRequires:  openssl-devel
 BuildRequires:	freetype-devel
 BuildRequires:	ffmpeg-devel
+BuildRequires:	git
 
 # WARNING: OpenColorIO and OpenImageIO are cross dependent.
 # If an ABI incompatible update is done in one, the other also needs to be
@@ -57,12 +51,12 @@ classes, utilities, and applications. Main features include:
   truly vast amounts of image data.
 
 
-%package -n python2-openimageio
+%package -n python3-openimageio
 Summary:        Python 2 bindings for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 %{?python_provide:%python_provide python2-%{srcname}}
 
-%description -n python2-openimageio
+%description -n python3-openimageio
 Python bindings for %{name}.
 
 
@@ -93,7 +87,7 @@ Development files for package %{name}
 
 
 %prep
-%autosetup -p1 -n oiio-Release-%{version}
+%autosetup -n oiio-Release-%{version}
 
 # Remove bundled pugixml
 rm -f src/include/OpenImageIO/pugixml.hpp \
@@ -130,8 +124,9 @@ pushd build
 	-DOpenGL_GL_PREFERENCE=GLVND \
 	-DUSE_OPENJPEG=ON \
 	-DUSE_OPENSSL=ON \
-       	-DPYTHON_VERSION=2.7 \
-       	-DPYLIB_INSTALL_DIR:PATH=%{python2_sitearch} \
+       	-DPYTHON_VERSION=%{python3_version} \
+       	-DPYLIB_INSTALL_DIR:PATH=%{python3_sitearch} \
+	-DINSTALL_FONTS:BOOL=FALSE \
 	-DUSE_QT=ON ..
 popd
 
@@ -139,36 +134,45 @@ popd
 pushd build
 %make_install
 
+# Move man pages to the right directory
+mkdir -p %{buildroot}%{_mandir}/man1
+cp -a src/doc/*.1 %{buildroot}%{_mandir}/man1
+
 %check
 # Not all tests pass on linux
-#pushd build/linux && make test
+#pushd build && make test
 
 
 %files
-%doc CHANGES.md README.md
-%license LICENSE
+%license LICENSE.md
 %{_libdir}/libOpenImageIO.so.%{sover}*
 %{_libdir}/libOpenImageIO_Util.so.%{sover}*
-%{_datadir}/fonts/OpenImageIO/
+%{_docdir}/OpenImageIO/
 
-%files -n python2-openimageio
-%{python2_sitearch}/OpenImageIO.so
+%files -n python3-openimageio
+%{python3_sitearch}/OpenImageIO.so
 
 %files utils
 %exclude %{_bindir}/iv
 %{_bindir}/*
+%exclude %{_mandir}/man1/iv.1.gz
+%{_mandir}/man1/*.1.gz
 
 %files iv
 %{_bindir}/iv
+%{_mandir}/man1/iv.1.gz
 
 %files devel
-%doc src/doc/*.pdf
 %{_libdir}/libOpenImageIO.so
 %{_libdir}/libOpenImageIO_Util.so
-%{_includedir}/*
-
+%{_includedir}/%{name}/
+%{_libdir}/pkgconfig/OpenImageIO.pc
+%{_datadir}/cmake/Modules/FindOpenImageIO.cmake
 
 %changelog
+
+* Wed May 29 2019 Unitedrpms Project <unitedrpms AT protonmail DOT com> 2.0.8-7
+- Updated to 2.0.8
 
 * Mon May 27 2019 Unitedrpms Project <unitedrpms AT protonmail DOT com> 1.8.16-7
 - Rebuilt for opencv
