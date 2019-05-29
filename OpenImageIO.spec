@@ -17,11 +17,7 @@ BuildRequires:  cmake gcc-c++
 BuildRequires:  txt2man
 BuildRequires:  qt5-devel
 BuildRequires:  boost-devel
-%if 0%{?fedora} > 28
 BuildRequires:  boost-python2-devel
-%else
-BuildRequires:  boost-python2-devel
-%endif
 %if 0%{?fedora} >= 29
 BuildRequires:	python-unversioned-command
 %endif
@@ -131,9 +127,11 @@ pushd build
 	-DUSE_OCIO=ON \
 	-DUSE_OPENCV=ON \
 	-DUSE_OPENGL=ON \
+	-DOpenGL_GL_PREFERENCE=GLVND \
 	-DUSE_OPENJPEG=ON \
 	-DUSE_OPENSSL=ON \
-	-DUSE_PYTHON=ON \
+       	-DPYTHON_VERSION=2.7 \
+       	-DPYLIB_INSTALL_DIR:PATH=%{python2_sitearch} \
 	-DUSE_QT=ON ..
 popd
 
@@ -151,6 +149,7 @@ pushd build
 %license LICENSE
 %{_libdir}/libOpenImageIO.so.%{sover}*
 %{_libdir}/libOpenImageIO_Util.so.%{sover}*
+%{_datadir}/fonts/OpenImageIO/
 
 %files -n python2-openimageio
 %{python2_sitearch}/OpenImageIO.so
@@ -158,8 +157,6 @@ pushd build
 %files utils
 %exclude %{_bindir}/iv
 %{_bindir}/*
-%exclude %{_mandir}/man1/iv.1.gz
-%{_mandir}/man1/*.1.gz
 
 %files iv
 %{_bindir}/iv
