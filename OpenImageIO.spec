@@ -2,7 +2,7 @@
 
 Name:           OpenImageIO
 Version:        2.0.10
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Library for reading and writing images
 
 License:        BSD
@@ -53,7 +53,7 @@ classes, utilities, and applications. Main features include:
 
 %package -n python3-openimageio
 Summary:        Python 2 bindings for %{name}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{name} = %{version}-%{release}
 %{?python_provide:%python_provide python2-%{srcname}}
 
 %description -n python3-openimageio
@@ -62,7 +62,7 @@ Python bindings for %{name}.
 
 %package utils
 Summary:        Command line utilities for %{name}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{name} = %{version}-%{release}
 
 %description utils
 Command-line tools to manipulate and get information on images using the
@@ -71,7 +71,7 @@ Command-line tools to manipulate and get information on images using the
 
 %package iv
 Summary:        %{name} based image viewer
-Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{name} = %{version}-%{release}
 
 %description iv
 A really nice image viewer, iv, based on %{name} classes (and so will work
@@ -80,7 +80,7 @@ with any formats for which plugins are available).
 
 %package devel
 Summary:        Documentation for %{name}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{name} = %{version}-%{release}
 
 %description devel
 Development files for package %{name}
@@ -170,6 +170,9 @@ cp -a src/doc/*.1 %{buildroot}%{_mandir}/man1
 %{_datadir}/cmake/Modules/FindOpenImageIO.cmake
 
 %changelog
+
+* Thu Sep 05 2019 Unitedrpms Project <unitedrpms AT protonmail DOT com> 2.0.10-8
+- Rebuilt
 
 * Thu Aug 08 2019 Unitedrpms Project <unitedrpms AT protonmail DOT com> 2.0.10-7
 - Updated to 2.0.10
