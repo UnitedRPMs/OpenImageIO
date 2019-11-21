@@ -2,7 +2,7 @@
 
 Name:           OpenImageIO
 Version:        2.0.10
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Library for reading and writing images
 
 License:        BSD
@@ -36,7 +36,7 @@ BuildRequires:	git
 # WARNING: OpenColorIO and OpenImageIO are cross dependent.
 # If an ABI incompatible update is done in one, the other also needs to be
 # rebuilt.
-BuildRequires:  OpenColorIO-devel
+BuildRequires:  OpenColorIO-devel >= 1.1.1
 
 
 %description
@@ -124,8 +124,8 @@ pushd build
 	-DOpenGL_GL_PREFERENCE=GLVND \
 	-DUSE_OPENJPEG=ON \
 	-DUSE_OPENSSL=ON \
-       	-DPYTHON_VERSION=%{python3_version} \
-       	-DPYLIB_INSTALL_DIR:PATH=%{python3_sitearch} \
+	-DPYTHON_VERSION=%{python3_version} \
+	-DPYLIB_INSTALL_DIR:PATH=%{python3_sitearch} \
 	-DINSTALL_FONTS:BOOL=FALSE \
 	-DUSE_QT=ON ..
 popd
@@ -170,6 +170,9 @@ cp -a src/doc/*.1 %{buildroot}%{_mandir}/man1
 %{_datadir}/cmake/Modules/FindOpenImageIO.cmake
 
 %changelog
+
+* Tue Nov 19 2019 Unitedrpms Project <unitedrpms AT protonmail DOT com> 2.0.10-9
+- Rebuilt for OpenColorIO
 
 * Thu Sep 05 2019 Unitedrpms Project <unitedrpms AT protonmail DOT com> 2.0.10-8
 - Rebuilt
