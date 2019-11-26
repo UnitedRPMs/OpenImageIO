@@ -1,8 +1,8 @@
 %global sover 2.0
 
 Name:           OpenImageIO
-Version:        2.0.10
-Release:        9%{?dist}
+Version:        2.0.12
+Release:        7%{?dist}
 Summary:        Library for reading and writing images
 
 License:        BSD
@@ -170,6 +170,9 @@ cp -a src/doc/*.1 %{buildroot}%{_mandir}/man1
 %{_datadir}/cmake/Modules/FindOpenImageIO.cmake
 
 %changelog
+
+* Mon Nov 25 2019 Unitedrpms Project <unitedrpms AT protonmail DOT com> 2.0.12-7
+- Updated to 2.0.12
 
 * Tue Nov 19 2019 Unitedrpms Project <unitedrpms AT protonmail DOT com> 2.0.10-9
 - Rebuilt for OpenColorIO
