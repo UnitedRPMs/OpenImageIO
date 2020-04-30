@@ -170,6 +170,7 @@ cp -a src/doc/*.1 %{buildroot}%{_mandir}/man1
 %{_includedir}/%{name}/
 %{_libdir}/pkgconfig/OpenImageIO.pc
 %{_datadir}/cmake/Modules/FindOpenImageIO.cmake
+%{_libdir}/cmake/OpenImageIO/
 
 %changelog
 
