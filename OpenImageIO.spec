@@ -1,8 +1,8 @@
-%global sover 2.0
+%global sover 2.1
 
 Name:           OpenImageIO
-Version:        2.0.13
-Release:        8%{?dist}
+Version:        2.1.13.0
+Release:        7%{?dist}
 Summary:        Library for reading and writing images
 
 License:        BSD
@@ -26,7 +26,7 @@ BuildRequires:  dcmtk-devel
 BuildRequires:  zlib-devel
 BuildRequires:  jasper-devel
 BuildRequires:  pugixml-devel
-BuildRequires:  opencv-devel >= 4.2.0
+BuildRequires:  opencv-devel >= 4.3.0
 BuildRequires:  LibRaw-devel
 BuildRequires:  openssl-devel
 BuildRequires:	freetype-devel
@@ -142,6 +142,8 @@ cp -a src/doc/*.1 %{buildroot}%{_mandir}/man1
 # Not all tests pass on linux
 #pushd build && make test
 
+%define _legacy_common_support 1
+
 
 %files
 %license LICENSE.md
@@ -170,6 +172,9 @@ cp -a src/doc/*.1 %{buildroot}%{_mandir}/man1
 %{_datadir}/cmake/Modules/FindOpenImageIO.cmake
 
 %changelog
+
+* Tue Apr 28 2020 Unitedrpms Project <unitedrpms AT protonmail DOT com> 2.1.13.0-7
+- Updated to 2.1.13.0
 
 * Sun Dec 29 2019 Unitedrpms Project <unitedrpms AT protonmail DOT com> 2.0.13-8
 - Rebuilt for opencv
