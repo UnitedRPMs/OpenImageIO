@@ -11,7 +11,7 @@ Source0:        https://github.com/OpenImageIO/oiio/archive/Release-%{version}/%
 
 BuildRequires:  cmake gcc-c++
 BuildRequires:  txt2man
-BuildRequires:  qt5-devel
+BuildRequires:  pkgconfig(Qt5)
 BuildRequires:  boost-devel
 BuildRequires:  boost-python3-devel
 BuildRequires:  glew-devel
