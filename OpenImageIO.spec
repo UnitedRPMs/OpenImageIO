@@ -2,7 +2,7 @@
 
 Name:           OpenImageIO
 Version:        2.1.15.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Library for reading and writing images
 
 License:        BSD
@@ -16,7 +16,11 @@ BuildRequires:  boost-devel
 BuildRequires:  boost-python3-devel
 BuildRequires:  glew-devel
 BuildRequires:  OpenEXR-devel ilmbase-devel
+%if 0%{?fedora} >= 33
+BuildRequires:  python3.9-devel
+%else
 BuildRequires:  python3-devel
+%endif
 BuildRequires:  libpng-devel libtiff-devel libjpeg-turbo-devel openjpeg2-devel
 BuildRequires:  giflib-devel
 BuildRequires:  libwebp-devel
@@ -173,6 +177,9 @@ cp -a src/doc/*.1 %{buildroot}%{_mandir}/man1
 %{_libdir}/cmake/OpenImageIO/
 
 %changelog
+
+* Sun May 31 2020 Unitedrpms Project <unitedrpms AT protonmail DOT com> 2.1.15.0-8
+- Rebuilt for python3.9
 
 * Mon May 18 2020 Unitedrpms Project <unitedrpms AT protonmail DOT com> 2.1.15.0-7
 - Updated to 2.1.15.0
