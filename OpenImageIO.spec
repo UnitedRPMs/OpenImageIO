@@ -1,8 +1,8 @@
 %global sover 2.1
 
 Name:           OpenImageIO
-Version:        2.1.15.0
-Release:        8%{?dist}
+Version:        2.1.16.0
+Release:        7%{?dist}
 Summary:        Library for reading and writing images
 
 License:        BSD
@@ -177,6 +177,9 @@ cp -a src/doc/*.1 %{buildroot}%{_mandir}/man1
 %{_libdir}/cmake/OpenImageIO/
 
 %changelog
+
+* Wed Jun 03 2020 Unitedrpms Project <unitedrpms AT protonmail DOT com> 2.1.16.0-8
+- Updated to 2.1.16.0
 
 * Sun May 31 2020 Unitedrpms Project <unitedrpms AT protonmail DOT com> 2.1.15.0-8
 - Rebuilt for python3.9
