@@ -1,7 +1,7 @@
 %global sover 2.1
 
 Name:           OpenImageIO
-Version:        2.1.16.0
+Version:        2.1.17.0
 Release:        7%{?dist}
 Summary:        Library for reading and writing images
 
@@ -177,6 +177,9 @@ cp -a src/doc/*.1 %{buildroot}%{_mandir}/man1
 %{_libdir}/cmake/OpenImageIO/
 
 %changelog
+
+* Wed Jul 08 2020 Unitedrpms Project <unitedrpms AT protonmail DOT com> 2.1.17.0-7
+- Updated to 2.1.17.0
 
 * Wed Jun 03 2020 Unitedrpms Project <unitedrpms AT protonmail DOT com> 2.1.16.0-8
 - Updated to 2.1.16.0
