@@ -1,7 +1,10 @@
 %global sover 2.1
 
+%undefine _debuginfo_subpackages
+%undefine _debugsource_packages
+
 Name:           OpenImageIO
-Version:        2.1.17.0
+Version:        2.1.18.1
 Release:        7%{?dist}
 Summary:        Library for reading and writing images
 
@@ -30,7 +33,7 @@ BuildRequires:  dcmtk-devel
 BuildRequires:  zlib-devel
 BuildRequires:  jasper-devel
 BuildRequires:  pugixml-devel
-BuildRequires:  opencv-devel >= 4.3.0
+BuildRequires:  opencv-devel >= 4.4.0
 BuildRequires:  LibRaw-devel
 BuildRequires:  openssl-devel
 BuildRequires:	freetype-devel
@@ -108,10 +111,11 @@ sed -i "s/SET CMP0046 OLD/SET CMP0046 NEW/" CMakeLists.txt
 
 %build
 
-mkdir build
-pushd build
+mkdir -p build; cd build
 
-%cmake	-DCMAKE_INSTALL_MANDIR:PATH=%{_mandir}/man1 \
+cmake	-DCMAKE_INSTALL_PREFIX="/usr" \
+	-DCMAKE_INSTALL_LIBDIR=%{_libdir} \
+	-DCMAKE_INSTALL_MANDIR:PATH=%{_mandir}/man1 \
 	-DOIIO_BUILD_TESTS=OFF \
 	-DSTOP_ON_WARNING=OFF \
 	-DUSE_EXTERNAL_PUGIXML=ON \
@@ -131,8 +135,11 @@ pushd build
 	-DPYTHON_VERSION=%{python3_version} \
 	-DPYLIB_INSTALL_DIR:PATH=%{python3_sitearch} \
 	-DINSTALL_FONTS:BOOL=FALSE \
-	-DUSE_QT=ON ..
-popd
+	-DUSE_QT=ON \
+	-Wno-dev ..
+	
+	%make_build
+
 
 %install
 pushd build
@@ -177,6 +184,9 @@ cp -a src/doc/*.1 %{buildroot}%{_mandir}/man1
 %{_libdir}/cmake/OpenImageIO/
 
 %changelog
+
+* Tue Aug 11 2020 Unitedrpms Project <unitedrpms AT protonmail DOT com> 2.1.18.1-7
+- Updated to 2.1.18.1
 
 * Wed Jul 08 2020 Unitedrpms Project <unitedrpms AT protonmail DOT com> 2.1.17.0-7
 - Updated to 2.1.17.0
