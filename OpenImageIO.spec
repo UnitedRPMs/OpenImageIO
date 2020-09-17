@@ -4,7 +4,7 @@
 %undefine _debugsource_packages
 
 Name:           OpenImageIO
-Version:        2.1.18.1
+Version:        2.2.6.1
 Release:        7%{?dist}
 Summary:        Library for reading and writing images
 
@@ -184,6 +184,9 @@ cp -a src/doc/*.1 %{buildroot}%{_mandir}/man1
 %{_libdir}/cmake/OpenImageIO/
 
 %changelog
+
+* Mon Sep 14 2020 Unitedrpms Project <unitedrpms AT protonmail DOT com> 2.2.6.1-7
+- Updated to 2.2.6.1
 
 * Tue Aug 11 2020 Unitedrpms Project <unitedrpms AT protonmail DOT com> 2.1.18.1-7
 - Updated to 2.1.18.1
