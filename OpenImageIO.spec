@@ -1,4 +1,4 @@
-%global sover 2.1
+%global sover 2.2
 
 %undefine _debuginfo_subpackages
 %undefine _debugsource_packages
@@ -11,6 +11,7 @@ Summary:        Library for reading and writing images
 License:        BSD
 URL:            http://www.openimageio.org
 Source0:        https://github.com/OpenImageIO/oiio/archive/Release-%{version}/%{name}-%{version}.tar.gz
+Patch:		https://patch-diff.githubusercontent.com/raw/OpenImageIO/oiio/pull/2698.patch
 
 BuildRequires:  cmake gcc-c++
 BuildRequires:  txt2man
@@ -19,11 +20,8 @@ BuildRequires:  boost-devel
 BuildRequires:  boost-python3-devel
 BuildRequires:  glew-devel
 BuildRequires:  OpenEXR-devel ilmbase-devel
-%if 0%{?fedora} >= 33
-BuildRequires:  python3.9-devel
-%else
 BuildRequires:  python3-devel
-%endif
+BuildRequires:	pybind11-devel
 BuildRequires:  libpng-devel libtiff-devel libjpeg-turbo-devel openjpeg2-devel
 BuildRequires:  giflib-devel
 BuildRequires:  libwebp-devel
@@ -39,6 +37,10 @@ BuildRequires:  openssl-devel
 BuildRequires:	freetype-devel
 BuildRequires:	ffmpeg-devel
 BuildRequires:	git
+# new support
+BuildRequires:	libsquish-devel
+BuildRequires:	tbb-devel
+BuildRequires:	openvdb-devel
 
 # WARNING: OpenColorIO and OpenImageIO are cross dependent.
 # If an ABI incompatible update is done in one, the other also needs to be
@@ -94,7 +96,7 @@ Development files for package %{name}
 
 
 %prep
-%autosetup -n oiio-Release-%{version}
+%autosetup -n oiio-Release-%{version} -p1
 
 # Remove bundled pugixml
 rm -f src/include/OpenImageIO/pugixml.hpp \
