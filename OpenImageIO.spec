@@ -4,14 +4,13 @@
 %undefine _debugsource_packages
 
 Name:           OpenImageIO
-Version:        2.2.6.1
+Version:        2.2.7.0
 Release:        7%{?dist}
 Summary:        Library for reading and writing images
 
 License:        BSD
 URL:            http://www.openimageio.org
 Source0:        https://github.com/OpenImageIO/oiio/archive/Release-%{version}/%{name}-%{version}.tar.gz
-Patch:		https://patch-diff.githubusercontent.com/raw/OpenImageIO/oiio/pull/2698.patch
 
 BuildRequires:  cmake gcc-c++
 BuildRequires:  txt2man
@@ -186,6 +185,9 @@ cp -a src/doc/*.1 %{buildroot}%{_mandir}/man1
 %{_libdir}/cmake/OpenImageIO/
 
 %changelog
+
+* Sun Oct 04 2020 Unitedrpms Project <unitedrpms AT protonmail DOT com> 2.2.7.0-7
+- Updated to 2.2.7.0
 
 * Mon Sep 14 2020 Unitedrpms Project <unitedrpms AT protonmail DOT com> 2.2.6.1-7
 - Updated to 2.2.6.1
