@@ -5,7 +5,7 @@
 
 Name:           OpenImageIO
 Version:        2.2.7.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Library for reading and writing images
 
 License:        BSD
@@ -30,7 +30,7 @@ BuildRequires:  dcmtk-devel
 BuildRequires:  zlib-devel
 BuildRequires:  jasper-devel
 BuildRequires:  pugixml-devel
-BuildRequires:  opencv-devel >= 4.4.0
+BuildRequires:  opencv-devel >= 4.5.0
 BuildRequires:  LibRaw-devel
 BuildRequires:  openssl-devel
 BuildRequires:	freetype-devel
@@ -185,6 +185,9 @@ cp -a src/doc/*.1 %{buildroot}%{_mandir}/man1
 %{_libdir}/cmake/OpenImageIO/
 
 %changelog
+
+* Thu Nov 05 2020 Unitedrpms Project <unitedrpms AT protonmail DOT com> 2.2.7.0-8
+- Rebuilt for opencv 
 
 * Sun Oct 04 2020 Unitedrpms Project <unitedrpms AT protonmail DOT com> 2.2.7.0-7
 - Updated to 2.2.7.0
