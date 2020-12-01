@@ -4,8 +4,8 @@
 %undefine _debugsource_packages
 
 Name:           OpenImageIO
-Version:        2.2.7.0
-Release:        8%{?dist}
+Version:        2.2.8.0
+Release:        7%{?dist}
 Summary:        Library for reading and writing images
 
 License:        BSD
@@ -185,6 +185,9 @@ cp -a src/doc/*.1 %{buildroot}%{_mandir}/man1
 %{_libdir}/cmake/OpenImageIO/
 
 %changelog
+
+* Fri Nov 27 2020 Unitedrpms Project <unitedrpms AT protonmail DOT com> 2.2.8.0-7
+- Updated to 2.2.8.0
 
 * Thu Nov 05 2020 Unitedrpms Project <unitedrpms AT protonmail DOT com> 2.2.7.0-8
 - Rebuilt for opencv 
