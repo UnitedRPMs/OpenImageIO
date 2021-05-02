@@ -4,7 +4,7 @@
 %undefine _debugsource_packages
 
 Name:           OpenImageIO
-Version:        2.2.10.0
+Version:        2.2.13.1
 Release:        7%{?dist}
 Summary:        Library for reading and writing images
 
@@ -44,7 +44,7 @@ BuildRequires:	openvdb-devel
 # WARNING: OpenColorIO and OpenImageIO are cross dependent.
 # If an ABI incompatible update is done in one, the other also needs to be
 # rebuilt.
-BuildRequires:  OpenColorIO-devel >= 1.1.1
+#BuildRequires:  OpenColorIO-devel >= 2.0.0
 
 
 %description
@@ -112,9 +112,10 @@ sed -i "s/SET CMP0046 OLD/SET CMP0046 NEW/" CMakeLists.txt
 
 %build
 
-mkdir -p build; cd build
+mkdir -p build
 
-cmake	-DCMAKE_INSTALL_PREFIX="/usr" \
+%cmake -B build	\
+	-DCMAKE_INSTALL_PREFIX="/usr" \
 	-DCMAKE_INSTALL_LIBDIR=%{_libdir} \
 	-DCMAKE_INSTALL_MANDIR:PATH=%{_mandir}/man1 \
 	-DOIIO_BUILD_TESTS=OFF \
@@ -137,18 +138,17 @@ cmake	-DCMAKE_INSTALL_PREFIX="/usr" \
 	-DPYLIB_INSTALL_DIR:PATH=%{python3_sitearch} \
 	-DINSTALL_FONTS:BOOL=FALSE \
 	-DUSE_QT=ON \
-	-Wno-dev ..
+	-Wno-dev 
 	
-	%make_build
+	%make_build -C build
 
 
 %install
-pushd build
-%make_install
+%make_install -C build
 
 # Move man pages to the right directory
 mkdir -p %{buildroot}%{_mandir}/man1
-cp -a src/doc/*.1 %{buildroot}%{_mandir}/man1
+#cp -a src/doc/*.1 %{buildroot}%{_mandir}/man1
 
 %check
 # Not all tests pass on linux
@@ -164,7 +164,7 @@ cp -a src/doc/*.1 %{buildroot}%{_mandir}/man1
 %{_docdir}/OpenImageIO/
 
 %files -n python3-openimageio
-%{python3_sitearch}/OpenImageIO.so
+%{python3_sitearch}/OpenImageIO.cpython-*.so
 
 %files utils
 %exclude %{_bindir}/iv
@@ -186,7 +186,13 @@ cp -a src/doc/*.1 %{buildroot}%{_mandir}/man1
 
 %changelog
 
-* Sun Jan 27 2021 Unitedrpms Project <unitedrpms AT protonmail DOT com> 2.2.10.0-7
+* Wed Apr 28 2021 Unitedrpms Project <unitedrpms AT protonmail DOT com> 2.2.13.1-7
+- Updated to 2.2.13.1
+
+* Sat Mar 27 2021 Unitedrpms Project <unitedrpms AT protonmail DOT com> 2.2.12.0-7
+- Updated to 2.2.12.0
+
+* Wed Jan 27 2021 Unitedrpms Project <unitedrpms AT protonmail DOT com> 2.2.10.0-7
 - Updated to 2.2.10.0
 
 * Fri Nov 27 2020 Unitedrpms Project <unitedrpms AT protonmail DOT com> 2.2.8.0-7
