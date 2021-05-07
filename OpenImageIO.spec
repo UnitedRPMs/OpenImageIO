@@ -4,7 +4,7 @@
 %undefine _debugsource_packages
 
 Name:           OpenImageIO
-Version:        2.2.13.1
+Version:        2.2.14.0
 Release:        7%{?dist}
 Summary:        Library for reading and writing images
 
@@ -40,7 +40,9 @@ BuildRequires:	git
 BuildRequires:	libsquish-devel
 BuildRequires:	tbb-devel
 BuildRequires:	openvdb-devel
-
+BuildRequires:	libjpeg-turbo-devel
+#BuildRequires:  libheif-devel
+BuildRequires:  ptex-devel
 # WARNING: OpenColorIO and OpenImageIO are cross dependent.
 # If an ABI incompatible update is done in one, the other also needs to be
 # rebuilt.
@@ -185,6 +187,9 @@ mkdir -p %{buildroot}%{_mandir}/man1
 %{_libdir}/cmake/OpenImageIO/
 
 %changelog
+
+* Mon May 03 2021 Unitedrpms Project <unitedrpms AT protonmail DOT com> 2.2.14.0-7
+- Updated to 2.2.14.0
 
 * Wed Apr 28 2021 Unitedrpms Project <unitedrpms AT protonmail DOT com> 2.2.13.1-7
 - Updated to 2.2.13.1
