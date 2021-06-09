@@ -3,8 +3,13 @@
 %undefine _debuginfo_subpackages
 %undefine _debugsource_packages
 
+# Turn off the brp-python-bytecompile automagic
+%global _python_bytecompile_extra 0
+
+%global __brp_check_rpaths %{nil}
+
 Name:           OpenImageIO
-Version:        2.2.14.0
+Version:        2.2.15.1
 Release:        7%{?dist}
 Summary:        Library for reading and writing images
 
@@ -42,7 +47,12 @@ BuildRequires:	tbb-devel
 BuildRequires:	openvdb-devel
 BuildRequires:	libjpeg-turbo-devel
 #BuildRequires:  libheif-devel
-BuildRequires:  ptex-devel
+%if 0%{?fedora} >= 34
+BuildRequires:  ptex-devel >= 2.4.0
+%else
+BuildRequires:  ptex-devel 
+%endif
+BuildRequires:  vulkan-loader
 # WARNING: OpenColorIO and OpenImageIO are cross dependent.
 # If an ABI incompatible update is done in one, the other also needs to be
 # rebuilt.
@@ -117,8 +127,6 @@ sed -i "s/SET CMP0046 OLD/SET CMP0046 NEW/" CMakeLists.txt
 mkdir -p build
 
 %cmake -B build	\
-	-DCMAKE_INSTALL_PREFIX="/usr" \
-	-DCMAKE_INSTALL_LIBDIR=%{_libdir} \
 	-DCMAKE_INSTALL_MANDIR:PATH=%{_mandir}/man1 \
 	-DOIIO_BUILD_TESTS=OFF \
 	-DSTOP_ON_WARNING=OFF \
@@ -187,6 +195,9 @@ mkdir -p %{buildroot}%{_mandir}/man1
 %{_libdir}/cmake/OpenImageIO/
 
 %changelog
+
+* Mon Jun 07 2021 Unitedrpms Project <unitedrpms AT protonmail DOT com> 2.2.15.1-7
+- Updated to 2.2.15.1
 
 * Mon May 03 2021 Unitedrpms Project <unitedrpms AT protonmail DOT com> 2.2.14.0-7
 - Updated to 2.2.14.0
