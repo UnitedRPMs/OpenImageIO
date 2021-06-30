@@ -10,7 +10,7 @@
 
 Name:           OpenImageIO
 Version:        2.2.15.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Library for reading and writing images
 
 License:        BSD
@@ -127,6 +127,8 @@ sed -i "s/SET CMP0046 OLD/SET CMP0046 NEW/" CMakeLists.txt
 mkdir -p build
 
 %cmake -B build	\
+	-DCMAKE_INSTALL_FULL_LIBDIR=%{_lib} \
+	-DCMAKE_CXX_STANDARD=14 \
 	-DCMAKE_INSTALL_MANDIR:PATH=%{_mandir}/man1 \
 	-DOIIO_BUILD_TESTS=OFF \
 	-DSTOP_ON_WARNING=OFF \
@@ -195,6 +197,9 @@ mkdir -p %{buildroot}%{_mandir}/man1
 %{_libdir}/cmake/OpenImageIO/
 
 %changelog
+
+* Fri Jun 18 2021 Unitedrpms Project <unitedrpms AT protonmail DOT com> 2.2.15.1-8
+- Rebuilt for openvdb
 
 * Mon Jun 07 2021 Unitedrpms Project <unitedrpms AT protonmail DOT com> 2.2.15.1-7
 - Updated to 2.2.15.1
