@@ -9,8 +9,8 @@
 %global __brp_check_rpaths %{nil}
 
 Name:           OpenImageIO
-Version:        2.2.15.1
-Release:        8%{?dist}
+Version:        2.2.16.0
+Release:        7%{?dist}
 Summary:        Library for reading and writing images
 
 License:        BSD
@@ -197,6 +197,9 @@ mkdir -p %{buildroot}%{_mandir}/man1
 %{_libdir}/cmake/OpenImageIO/
 
 %changelog
+
+* Sun Aug 01 2021 Unitedrpms Project <unitedrpms AT protonmail DOT com> 2.2.16.0-7
+- Updated to 2.2.16.0
 
 * Fri Jun 18 2021 Unitedrpms Project <unitedrpms AT protonmail DOT com> 2.2.15.1-8
 - Rebuilt for openvdb
