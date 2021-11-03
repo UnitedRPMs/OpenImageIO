@@ -1,4 +1,4 @@
-%global sover 2.2
+%global sover 2.3
 
 %undefine _debuginfo_subpackages
 %undefine _debugsource_packages
@@ -9,13 +9,13 @@
 %global __brp_check_rpaths %{nil}
 
 Name:           OpenImageIO
-Version:        2.2.16.0
+Version:        2.3.8.0
 Release:        7%{?dist}
 Summary:        Library for reading and writing images
 
 License:        BSD
 URL:            http://www.openimageio.org
-Source0:        https://github.com/OpenImageIO/oiio/archive/Release-%{version}/%{name}-%{version}.tar.gz
+Source0:        https://github.com/OpenImageIO/oiio/archive/refs/tags/v%{version}.tar.gz
 
 BuildRequires:  cmake gcc-c++
 BuildRequires:  txt2man
@@ -23,13 +23,14 @@ BuildRequires:  pkgconfig(Qt5)
 BuildRequires:  boost-devel
 BuildRequires:  boost-python3-devel
 BuildRequires:  glew-devel
-BuildRequires:  OpenEXR-devel ilmbase-devel
+BuildRequires:  openexr-devel >= 3.1.1
+BuildRequires:  imath-devel >= 3.1.2
+BuildRequires:  Field3D-devel >= 1.7.3-15
 BuildRequires:  python3-devel
 BuildRequires:	pybind11-devel
 BuildRequires:  libpng-devel libtiff-devel libjpeg-turbo-devel openjpeg2-devel
 BuildRequires:  giflib-devel
 BuildRequires:  libwebp-devel
-BuildRequires:  Field3D-devel
 BuildRequires:  hdf5-devel
 BuildRequires:  dcmtk-devel
 BuildRequires:  zlib-devel
@@ -44,8 +45,8 @@ BuildRequires:	git
 # new support
 BuildRequires:	libsquish-devel
 BuildRequires:	tbb-devel
-BuildRequires:	openvdb-devel
-BuildRequires:	libjpeg-turbo-devel
+BuildRequires:	openvdb-devel >= 8.1.0-6
+BuildRequires:	libjpeg-turbo-devel 
 #BuildRequires:  libheif-devel
 %if 0%{?fedora} >= 34
 BuildRequires:  ptex-devel >= 2.4.0
@@ -107,7 +108,7 @@ Development files for package %{name}
 
 
 %prep
-%autosetup -n oiio-Release-%{version} -p1
+%autosetup -n oiio-%{version} -p1
 
 # Remove bundled pugixml
 rm -f src/include/OpenImageIO/pugixml.hpp \
@@ -126,7 +127,8 @@ sed -i "s/SET CMP0046 OLD/SET CMP0046 NEW/" CMakeLists.txt
 
 mkdir -p build
 
-%cmake -B build	\
+cmake -B build -DCMAKE_INSTALL_PREFIX="/usr" \
+	-DCMAKE_INSTALL_LIBDIR=%{_libdir} \
 	-DCMAKE_INSTALL_FULL_LIBDIR=%{_lib} \
 	-DCMAKE_CXX_STANDARD=14 \
 	-DCMAKE_INSTALL_MANDIR:PATH=%{_mandir}/man1 \
@@ -193,10 +195,13 @@ mkdir -p %{buildroot}%{_mandir}/man1
 %{_libdir}/libOpenImageIO_Util.so
 %{_includedir}/%{name}/
 %{_libdir}/pkgconfig/OpenImageIO.pc
-%{_datadir}/cmake/Modules/FindOpenImageIO.cmake
+#%{_datadir}/cmake/Modules/FindOpenImageIO.cmake
 %{_libdir}/cmake/OpenImageIO/
 
 %changelog
+
+* Mon Oct 25 2021 Unitedrpms Project <unitedrpms AT protonmail DOT com> 2.3.8.0-7
+- Updated to 2.3.8.0
 
 * Sun Aug 01 2021 Unitedrpms Project <unitedrpms AT protonmail DOT com> 2.2.16.0-7
 - Updated to 2.2.16.0
