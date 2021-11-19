@@ -9,7 +9,7 @@
 %global __brp_check_rpaths %{nil}
 
 Name:           OpenImageIO
-Version:        2.3.8.0
+Version:        2.3.9.1
 Release:        7%{?dist}
 Summary:        Library for reading and writing images
 
@@ -199,6 +199,9 @@ mkdir -p %{buildroot}%{_mandir}/man1
 %{_libdir}/cmake/OpenImageIO/
 
 %changelog
+
+* Wed Nov 17 2021 Unitedrpms Project <unitedrpms AT protonmail DOT com> 2.3.9.1-7
+- Updated to 2.3.9.1
 
 * Mon Oct 25 2021 Unitedrpms Project <unitedrpms AT protonmail DOT com> 2.3.8.0-7
 - Updated to 2.3.8.0
