@@ -9,7 +9,7 @@
 %global __brp_check_rpaths %{nil}
 
 Name:           OpenImageIO
-Version:        2.3.9.1
+Version:        2.3.12.0
 Release:        7%{?dist}
 Summary:        Library for reading and writing images
 
@@ -40,7 +40,7 @@ BuildRequires:  opencv-devel >= 4.5.0
 BuildRequires:  LibRaw-devel
 BuildRequires:  openssl-devel
 BuildRequires:	freetype-devel
-BuildRequires:	ffmpeg-devel
+BuildRequires:	ffmpeg4-devel 
 BuildRequires:	git
 # new support
 BuildRequires:	libsquish-devel
@@ -199,6 +199,12 @@ mkdir -p %{buildroot}%{_mandir}/man1
 %{_libdir}/cmake/OpenImageIO/
 
 %changelog
+
+* Fri Feb 04 2022 Unitedrpms Project <unitedrpms AT protonmail DOT com> 2.3.12.0-7
+- Updated to 2.3.12.0
+
+* Sat Dec 25 2021 Unitedrpms Project <unitedrpms AT protonmail DOT com> 2.3.10.1-7
+- Updated to 2.3.10.1
 
 * Wed Nov 17 2021 Unitedrpms Project <unitedrpms AT protonmail DOT com> 2.3.9.1-7
 - Updated to 2.3.9.1
