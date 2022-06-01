@@ -9,7 +9,7 @@
 %global __brp_check_rpaths %{nil}
 
 Name:           OpenImageIO
-Version:        2.3.12.0
+Version:        2.3.13.0
 Release:        7%{?dist}
 Summary:        Library for reading and writing images
 
@@ -36,7 +36,7 @@ BuildRequires:  dcmtk-devel
 BuildRequires:  zlib-devel
 BuildRequires:  jasper-devel
 BuildRequires:  pugixml-devel
-BuildRequires:  opencv-devel >= 4.5.0
+BuildRequires:  opencv-devel >= 4.5.5
 BuildRequires:  LibRaw-devel
 BuildRequires:  openssl-devel
 BuildRequires:	freetype-devel
@@ -199,6 +199,9 @@ mkdir -p %{buildroot}%{_mandir}/man1
 %{_libdir}/cmake/OpenImageIO/
 
 %changelog
+
+* Wed Jun 01 2022 Unitedrpms Project <unitedrpms AT protonmail DOT com> 2.3.13.0-7
+- Updated to 2.3.13.0
 
 * Fri Feb 04 2022 Unitedrpms Project <unitedrpms AT protonmail DOT com> 2.3.12.0-7
 - Updated to 2.3.12.0
